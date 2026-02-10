@@ -1,65 +1,68 @@
 import java.util.Scanner;
 public class praktikumarray {
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        System.out.print("Masukkan jumlah matkul;: ");
-        int jumlah = input.nextInt();
-        input.nextLine();
+     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String[] mk = {
+            "Pancasila",
+            "Konsep Teknologi Informasi",
+            "Psikologi Umum",
+            "Matematika Dasar",
+            "Bahasa Inggris",
+            "Dasar Pemrograman",
+            "Praktikum Dasar Pemrograman",
+            "Keselamatan dan Kesehatan Kerja"
+        };
+        int[] sks = {2, 2, 2, 3, 2, 3, 1, 2};
+        double[] nilaiAngka = new double[mk.length];
+        String[] nilaiHuruf = new String[mk.length];
+        double[] bobot = new double[mk.length];
 
-        String[] namaMK = new String[jumlah];
-        int[] sks = new int[jumlah];
-        String[] nilaiHuruf = new String[jumlah];
-        double[] nilaiSetara = new double[jumlah];
-
-        double totalNilai = 0;
+        System.out.println("Program Menghitung IP Semester");
+        System.out.println("==============================");
+        for (int i = 0; i < mk.length; i++) {
+            System.out.print("masukkan nilai Angka untuk MK " + mk[i] + ": ");
+            nilaiAngka[i] = sc.nextDouble();
+        }
+        for (int i = 0; i < mk.length; i++) {
+            if (nilaiAngka[i] >= 80) {
+                nilaiHuruf[i] = "A";
+                bobot[i] = 4.00;
+            } else if (nilaiAngka[i] >= 73) {
+                nilaiHuruf[i] = "B+";
+                bobot[i] = 3.50;
+            } else if (nilaiAngka[i] >= 65) {
+                nilaiHuruf[i] = "B";
+                bobot[i] = 3.00;
+            } else if (nilaiAngka[i] >= 60) {
+                nilaiHuruf[i] = "C+";
+                bobot[i] = 2.50;
+            } else if (nilaiAngka[i] >= 50) {
+                nilaiHuruf[i] = "C";
+                bobot[i] = 2.00;
+            } else if (nilaiAngka[i] >= 39) {
+                nilaiHuruf[i] = "D";
+                bobot[i] = 1.00;
+            } else {
+                nilaiHuruf[i] = "E";
+                bobot[i] = 0.00;
+            }
+        }
+        System.out.println("\nHasil Konversi Nilai");
+        System.out.println("==============================");
+        System.out.printf("%-40s %-12s %-12s %-12s\n",
+        "MK", "Nilai Angka", "Nilai Huruf", "Bobot Nilai");
+        double totalBobot = 0;
         int totalSKS = 0;
-        for (int i = 0; i < jumlah; i++) {
-            System.out.println("\nMata Kuliah ke-" + (i + 1));
-            System.out.print("Nama Mata Kuliah : ");
-            namaMK[i] = input.nextLine();
-            System.out.print("SKS              : ");
-            sks[i] = input.nextInt();
-            input.nextLine();
-            System.out.print("Nilai Huruf      : ");
-            nilaiHuruf[i] = input.nextLine();
-     switch (nilaiHuruf[i]) {
-         case "A":
-           nilaiSetara[i] = 4.0;
-        break;
-         case "B+":
-           nilaiSetara[i] = 3.5;
-        break;
-         case "B":
-           nilaiSetara[i] = 3.0;
-        break;
-         case "C+":
-           nilaiSetara[i] = 2.5;
-        break;
-         case "C":
-           nilaiSetara[i] = 2.0;
-        break;
-         case "D":
-           nilaiSetara[i] = 1.0;
-        break;
-         case "E":
-           nilaiSetara[i] = 0.0;
-        break;
-          default:
-    System.out.println("Nilai huruf tidak valid!");
-     nilaiSetara[i] = 0.0;
- }
-            totalNilai += nilaiSetara[i] * sks[i];
+        for (int i = 0; i < mk.length; i++) {
+            System.out.printf("%-40s %-12.2f %-12s %-12.2f\n",
+                    mk[i], nilaiAngka[i], nilaiHuruf[i], bobot[i]);
+            totalBobot += bobot[i] * sks[i];
             totalSKS += sks[i];
         }
-        double ipSemester = totalNilai / totalSKS;
-        System.out.println("\n==== DAFTAR NILAI ====");
-        for (int i = 0; i < jumlah; i++) {
-            System.out.println(
-                namaMK[i] + " | SKS: " + sks[i] + " | Nilai: " + nilaiHuruf[i]
-            );
-        }
-        System.out.println("\nTotal SKS   : " + totalSKS);
-        System.out.println("IP Semester : " + ipSemester);
-        input.close();
+
+        double ip = totalBobot / totalSKS;
+
+        System.out.println("==============================");
+        System.out.printf("IP : %.2f\n", ip);
     }
 }
